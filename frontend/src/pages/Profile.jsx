@@ -1,8 +1,26 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { email, logout } = useContext(UserContext);
+  const { logout, getProfile } = useContext(UserContext);
+  const [profileEmail, setProfileEmail] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const data = await getProfile();
+      if (data && data.email) {
+        setProfileEmail(data.email);
+      }
+    };
+    fetchProfile();
+  }, [getProfile]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/"); 
+  };
 
   return (
     <div className="container mt-5">
@@ -14,16 +32,12 @@ const Profile = () => {
           border: "1px solid #444",
         }}
       >
-        <h2 className="text-center text-white mb-4">
-          Perfil
-        </h2>
+        <h2 className="text-center text-white mb-4">Perfil</h2>
 
-        <hr className="mb-4" />
+        <hr className="mb-4 text-white" />
 
         <div className="mb-4">
-          <label className="form-label text-white">
-            Email
-          </label>
+          <label className="form-label text-white">Email</label>
 
           <div
             className="px-3 py-2 rounded"
@@ -33,12 +47,12 @@ const Profile = () => {
               color: "#fff",
             }}
           >
-            {email}
+            {profileEmail || "Cargando..."}
           </div>
         </div>
 
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="btn btn-warning w-100 text-dark fw-bold py-2"
         >
           Cerrar sesión

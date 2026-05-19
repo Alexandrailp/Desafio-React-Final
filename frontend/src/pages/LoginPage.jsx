@@ -7,10 +7,9 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const { login } = useContext(UserContext);
-
   const navigate = useNavigate();
 
-  const validarLogin = (e) => {
+  const validarLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -23,11 +22,7 @@ const LoginPage = () => {
       return;
     }
 
-    login(email);
-
-    alert("¡Login exitoso! Bienvenido.");
-
-    navigate("/");
+    await login(email, password);
   };
 
   return (
@@ -42,10 +37,7 @@ const LoginPage = () => {
         <hr className="text-white mb-4" />
 
         <div className="mb-3 text-center">
-          <label className="form-label text-white fw-bold">
-            Email
-          </label>
-
+          <label className="form-label text-white fw-bold">Email</label>
           <input
             type="email"
             className="form-control bg-dark text-white border-secondary shadow-none"
@@ -55,10 +47,7 @@ const LoginPage = () => {
         </div>
 
         <div className="mb-3 text-center">
-          <label className="form-label text-white fw-bold">
-            Contraseña
-          </label>
-
+          <label className="form-label text-white fw-bold">Contraseña</label>
           <input
             type="password"
             className="form-control bg-dark text-white border-secondary shadow-none"
@@ -67,10 +56,7 @@ const LoginPage = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-warning w-100 fw-bold py-2"
-        >
+        <button type="submit" className="btn btn-warning w-100 fw-bold py-2">
           Ingresar
         </button>
       </form>

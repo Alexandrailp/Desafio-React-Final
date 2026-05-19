@@ -24,12 +24,16 @@ function App() {
 
         <Route
           path="/login"
-          element={token ? <Navigate to="/" /> : <LoginPage />}
+          element={
+            token ? <Navigate to="/" replace /> : <LoginPage />
+          }
         />
 
         <Route
           path="/register"
-          element={token ? <Navigate to="/" /> : <RegisterPage />}
+          element={
+            token ? <Navigate to="/" replace /> : <RegisterPage />
+          }
         />
 
         <Route path="/cart" element={<Cart />} />
@@ -38,7 +42,9 @@ function App() {
 
         <Route
           path="/profile"
-          element={token ? <Profile /> : <Navigate to="/login" />}
+          element={
+            token ? <Profile /> : <Navigate to="/login" replace />
+          }
         />
 
         <Route path="/404" element={<NotFound />} />

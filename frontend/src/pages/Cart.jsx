@@ -1,10 +1,42 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 
 const Cart = () => {
   const { cart, increase, decrease, total } = useContext(CartContext);
   const { token } = useContext(UserContext);
+  
+  const [mensaje, setMensaje] = useState("");
+
+  const handleCheckout = async () => {
+    if (cart.length === 0) {
+      setMensaje("El carrito está vacío.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/checkouts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          cart: cart,
+        }),
+      });
+
+      if (response.ok) {
+        setMensaje("¡Compra realizada con éxito! 🍕");
+      } else {
+        const errorData = await response.json();
+        setMensaje(`Error en la compra: ${errorData.error || "Intenta nuevamente"}`);
+      }
+    } catch (error) {
+      console.error("Error conectando con el servidor:", error);
+      setMensaje("Error de conexión con el servidor.");
+    }
+  };
 
   return (
     <div className="container mt-5">
@@ -100,12 +132,20 @@ const Cart = () => {
         <h2 className="fw-bold mt-4 mb-3" style={{ color: "#d6d6d6" }}>
           Total: ${total.toLocaleString("es-CL")}
         </h2>
+        
         <button
           className="btn btn-warning text-dark px-4 fw-semibold"
           disabled={!token}
+          onClick={handleCheckout}
         >
           Pagar
         </button>
+
+        {mensaje && (
+          <div className={`alert mt-3 ${mensaje.includes("éxito") ? "alert-success" : "alert-danger"}`} role="alert">
+            {mensaje}
+          </div>
+        )}
       </div>
     </div>
   );
