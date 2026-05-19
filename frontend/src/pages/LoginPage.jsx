@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const validarLogin = (e) => {
     e.preventDefault();
@@ -17,20 +23,29 @@ const LoginPage = () => {
       return;
     }
 
+    login(email);
+
     alert("¡Login exitoso! Bienvenido.");
+
+    navigate("/");
   };
 
   return (
     <div className="main-content bg-dark">
-      <form className="p-5 rounded shadow-lg border border-secondary" 
-        style={{ backgroundColor: '#181a1b', width: '400px' }} 
-        onSubmit={validarLogin}>
-
+      <form
+        className="p-5 rounded shadow-lg border border-secondary"
+        style={{ backgroundColor: "#181a1b", width: "400px" }}
+        onSubmit={validarLogin}
+      >
         <h2 className="text-center text-white mb-4">Ingresar</h2>
+
         <hr className="text-white mb-4" />
-        
+
         <div className="mb-3 text-center">
-          <label className="form-label text-white fw-bold">Email</label>
+          <label className="form-label text-white fw-bold">
+            Email
+          </label>
+
           <input
             type="email"
             className="form-control bg-dark text-white border-secondary shadow-none"
@@ -40,7 +55,10 @@ const LoginPage = () => {
         </div>
 
         <div className="mb-3 text-center">
-          <label className="form-label text-white fw-bold">Contraseña</label>
+          <label className="form-label text-white fw-bold">
+            Contraseña
+          </label>
+
           <input
             type="password"
             className="form-control bg-dark text-white border-secondary shadow-none"
@@ -49,7 +67,12 @@ const LoginPage = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-warning w-100 fw-bold py-2">Ingresar</button>
+        <button
+          type="submit"
+          className="btn btn-warning w-100 fw-bold py-2"
+        >
+          Ingresar
+        </button>
       </form>
     </div>
   );
