@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+
 const Profile = () => {
+  const { email, logout } = useContext(UserContext);
+
   return (
     <div className="container mt-5">
       <div
@@ -9,13 +14,16 @@ const Profile = () => {
           border: "1px solid #444",
         }}
       >
-        <h2 className="text-center text-white mb-4">Perfil</h2>
+        <h2 className="text-center text-white mb-4">
+          Perfil
+        </h2>
 
         <hr className="mb-4" />
 
-        {/* EMAIL */}
         <div className="mb-4">
-          <label className="form-label text-white">Email</label>
+          <label className="form-label text-white">
+            Email
+          </label>
 
           <div
             className="px-3 py-2 rounded"
@@ -25,11 +33,14 @@ const Profile = () => {
               color: "#fff",
             }}
           >
-            usuario@test.com
+            {email}
           </div>
         </div>
 
-        <button className="btn btn-warning w-100 text-dark fw-bold py-2">
+        <button
+          onClick={logout}
+          className="btn btn-warning w-100 text-dark fw-bold py-2"
+        >
           Cerrar sesión
         </button>
       </div>
