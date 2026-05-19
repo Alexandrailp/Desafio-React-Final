@@ -88,6 +88,6 @@ Checkout (Hito 8):
 
 ## 🌐 Despliegue
 
-Puedes ver la aplicación en vivo aquí: [Reemplaza este texto con tu link de Vercel]
+Puedes ver la aplicación en vivo aquí: https://desafio-react-final.vercel.app/
 
 (Nota: Al estar el backend configurado en entorno local, las funciones de carrito y login en el deploy requieren que el backend también esté desplegado para operar correctamente).
