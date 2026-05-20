@@ -24,4 +24,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
 
-module.exports = app;
+export default app;
