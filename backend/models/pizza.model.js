@@ -1,9 +1,12 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const getPizzas = async () => {
-  // Construimos la ruta absoluta usando process.cwd() que apunta a la raíz del proyecto en Vercel
-  const filePath = path.join(process.cwd(), "db", "pizzas.json");
+  const filePath = path.join(__dirname, "..", "db", "pizzas.json");
   const data = await readFile(filePath, "utf-8");
   return JSON.parse(data);
 };
