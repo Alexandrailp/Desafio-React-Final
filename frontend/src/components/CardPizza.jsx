@@ -7,7 +7,7 @@ const CardPizza = ({ pizza }) => {
 
   return (
     <div className="card h-100 shadow-sm">
-      <img src={pizza.img} className="card-img-top" alt={pizza.name} />
+      <img src={pizza.img.replace("http://localhost:5000", import.meta.env.VITE_API_URL)} className="card-img-top" alt={pizza.name} />
 
       <div className="card-body text-center">
         <h5 className="card-title text-capitalize">{pizza.name}</h5>

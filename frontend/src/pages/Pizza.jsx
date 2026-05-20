@@ -42,7 +42,7 @@ const Pizza = () => {
           }}
         >
           <img
-            src={pizza.img}
+            src={pizza.img.replace("http://localhost:5000", import.meta.env.VITE_API_URL)}
             alt={pizza.name}
             onError={(e) => {
               e.target.onerror = null;
