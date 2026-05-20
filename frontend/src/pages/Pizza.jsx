@@ -9,7 +9,7 @@ const Pizza = () => {
   const [pizza, setPizza] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/pizzas/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/pizzas/${id}`)
       .then((res) => res.json())
       .then((data) => setPizza(data));
   }, [id]);

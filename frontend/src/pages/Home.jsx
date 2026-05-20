@@ -6,7 +6,7 @@ const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/pizzas")
+    fetch(`${import.meta.env.VITE_API_URL}/api/pizzas`)
       .then((res) => res.json())
       .then((data) => setPizzas(data))
       .catch((error) => console.error(error));
